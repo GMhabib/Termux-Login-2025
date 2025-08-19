@@ -60,6 +60,14 @@ echo "pkill -f bash" >> menu
 chmod +x menu
 pkg install neofetch -y
 clear
+echo "neofetch installed"
+sleep 2
+clear
+pkg install pv -y
+clear
+echo " pv installed "
+sleep 2
+clear
 # Command history tweaks:
 # - Append history instead of overwriting
 #   when shell exits.
@@ -95,4 +103,11 @@ clear
 
 echo "install Completed"
 sleep 2
+clear
+echo "ingat jangan lupa agar kamu membackup termuxnya, agar data kamu tidak hilang" | pv -qL 20
+sleep 2
+clear
+echo "Termux anda kami matikan, dan jalankan lagi" | pv -qL 20
+sleep 2
+clear
 pkill -f termux
