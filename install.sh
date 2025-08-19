@@ -84,7 +84,7 @@ echo "export HISTCONTROL=ignoreboth" >> $PREFIX/etc/bash.bashrc
 echo "PROMPT_DIRTRIM=2" >> $PREFIX/etc/bash.bashrc
 # Test if PS1 is set to the upstream default value, and if so overwrite it with our default.
 # This allows users to override $PS1 by passing it to the invocation of bash as an environment variable
-echo '[[ "$PS1" == "\\s-\\v\\$ " ]] && PS1="\\[\\e[0;32m\\]\\w\\[\\e[0m\\] \\[\\e[0;97m\\]\\$\\[\\e[0m\\] "' >> $PREFIX/etc/bash.bashrc
+echo '[[ "$PS1" == '\''\\s-\\v\\$ '\'' ]] && PS1='\''\\[\\e[0;32m\\]\\w\\[\\e[0m\\] \\[\\e[0;97m\\]\\$\\[\\e[0m\\] '\'' ' >> $PREFIX/etc/bash.bashrc
 # Handles nonexistent commands.
 # If user has entered command which invokes non-available
 # utility, command-not-found will give a package suggestions.
